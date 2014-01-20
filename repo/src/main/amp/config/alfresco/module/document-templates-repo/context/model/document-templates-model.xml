@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model name="rplpdt:documentTemplates" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+  <description>Redpill Linpro Document Templates</description>
+  <author>Repill Linpro AB</author>
+  <version>1.0.0</version>
+  <imports>
+    <!-- Import Alfresco Content Domain Model Definitions -->
+    <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+  </imports>
+  <namespaces>
+    <namespace uri="http://www.redpill-linpro.org/alfresco/model/documentTemplates/1.0" prefix="rplpdt" />
+  </namespaces>
+  <aspects>
+    <aspect name="rplpdt:templatedAspect">
+      <associations>
+        <association name="rplpdt:template">
+          <source>
+            <mandatory>false</mandatory>
+            <many>false</many>
+          </source>
+          <target>
+            <class>cm:content</class>
+            <mandatory>false</mandatory>
+            <many>false</many>
+          </target>
+        </association>
+      </associations>
+    </aspect>
+  </aspects>
+
+</model>

@@ -1,0 +1,58 @@
+<extension>
+  <modules>
+
+    <module>
+      <id>Redpill Linpro Default Document Templates</id>
+      <auto-deploy>false</auto-deploy>
+      <version>${project.version}</version>
+
+      <configurations>
+        <config evaluator="string-compare" condition="DocumentLibrary">
+          <create-content>
+            <content id="content" label="create-content.document" type="pagelink" index="6" icon="text">
+              <param name="page">create-content?destination={nodeRef}&amp;itemId=cm:content</param>
+            </content>
+          </create-content>
+        </config>
+
+        <config evaluator="model-type" condition="cm:content">
+          <forms>
+            <!-- Default Create Content form -->
+            <form>
+              <field-visibility>
+                <show id="cm:name" />
+                <show id="cm:title" force="true" />
+                <show id="cm:description" force="true" />
+                <show id="rplpdt:template" force="true" />
+              </field-visibility>
+              <appearance>
+                <field id="cm:name">
+                  <control>
+                    <control-param name="maxLength">255</control-param>
+                  </control>
+                </field>
+                <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+                </field>
+                <!-- This field is used to control document templates for this type. A temporary aspect attached to the node when created and cleared by a formfilter afterwards -->
+                <field id="rplpdt:template" mandatory="true">
+                  <control template="/org/alfresco/components/form/controls/association.ftl">
+                    <!-- 
+                      Use control params like this to limit to a site folder 
+                      <control-param name="startLocation">/app:company_home/st:sites/cm:templates/cm:documentLibrary/cm:Dokument</control-param> 
+                      <control-param name="rootNode">/app:company_home/st:sites/cm:templates/cm:documentLibrary/cm:Dokument</control-param> 
+                    -->
+                    <!-- Defaults to the Node templates directory in the data dictionary -->
+                    <control-param name="startLocation">/app:company_home/app:dictionary/app:node_templates</control-param>
+                    <control-param name="rootNode">/app:company_home/app:dictionary/app:node_templates</control-param>
+                  </control>
+                </field>
+              </appearance>
+            </form>
+          </forms>
+        </config>
+      </configurations>
+    </module>
+
+  </modules>
+</extension>
