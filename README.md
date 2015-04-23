@@ -10,7 +10,7 @@ To bootstrap the template-library site the property `template-library.site.disab
 To enable the possibility to pick a template for alfresco datatypes this module needs to be enabled in share. Navigate to `http://[your-host]:[port]/page/modules/deploy` and enable the "Redpill Linpro Default Document Templates" module.
 
 ## Activate templates for certain content types
-To activate a document template for a content type (for example cm:content) edit your share configuration files. See example in `Redpill Linpro Default Document Templates.xml` file.
+To activate a document template for a content type (for example cm:content) edit your share configuration files. See example in `alfresco-document-templates-extension.xml` file.
 
 <extension>
   <modules>
