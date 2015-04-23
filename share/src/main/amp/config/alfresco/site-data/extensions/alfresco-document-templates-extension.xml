@@ -37,14 +37,10 @@
                 <!-- This field is used to control document templates for this type. A temporary aspect attached to the node when created and cleared by a formfilter afterwards -->
                 <field id="rplpdt:template" mandatory="true">
                   <control template="/org/alfresco/components/form/controls/association.ftl">
-                    <!-- 
-                      Use control params like this to limit to a site folder 
-                      <control-param name="startLocation">/app:company_home/st:sites/cm:templates/cm:documentLibrary/cm:Dokument</control-param> 
-                      <control-param name="rootNode">/app:company_home/st:sites/cm:templates/cm:documentLibrary/cm:Dokument</control-param> 
-                    -->
-                    <!-- Defaults to the Node templates directory in the data dictionary -->
-                    <control-param name="startLocation">/app:company_home/app:dictionary/app:node_templates</control-param>
-                    <control-param name="rootNode">/app:company_home/app:dictionary/app:node_templates</control-param>
+                   
+                    <!-- Defaults to the document-templates directory in the doclib of the template-library site. -->
+                    <control-param name="startLocation">/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</control-param>
+                    <control-param name="rootNode">/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</control-param>
                   </control>
                 </field>
               </appearance>
