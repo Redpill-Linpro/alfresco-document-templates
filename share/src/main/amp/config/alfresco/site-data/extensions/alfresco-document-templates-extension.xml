@@ -39,8 +39,14 @@
                   <control template="/org/alfresco/components/form/controls/association.ftl">
                    
                     <!-- Defaults to the document-templates directory in the doclib of the template-library site. -->
+                  <!-- If the template-library site patch is activated the templates are choosen like below.
                     <control-param name="startLocation">/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</control-param>
                     <control-param name="rootNode">/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</control-param>
+                   -->  
+                    <!-- Defaults to the Node templates directory in the data dictionary -->
+                    <control-param name="startLocation">/app:company_home/app:dictionary/app:node_templates</control-param>
+                    <control-param name="rootNode">/app:company_home/app:dictionary/app:node_templates</control-param>
+ 
                   </control>
                 </field>
               </appearance>
