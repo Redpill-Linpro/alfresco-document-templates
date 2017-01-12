@@ -1,4 +1,4 @@
-# alfresco-document-templates
+# Alfresco Document Templates
 
 With this addon enabled the user can when creating content choose from a set of predefined templates residing in either the data-dictionary/node-templates folder or in a special template-library site.
 
