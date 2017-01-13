@@ -7,5 +7,39 @@
     <property name="nodeService" ref="NodeService" />
     <property name="fileFolderService" ref="FileFolderService" />
   </bean>
-
+    <!-- Bootstrap the template library site. -->
+     <bean id="patch.siteLoadPatch.templateLibrary" class="org.redpill_linpro.alfresco.repo.admin.patch.impl.SiteLoadPatch" parent="basePatch">
+        <property name="id"><value>patch.siteLoadPatch.templateLibrary</value></property>
+        <property name="description"><value>patch.siteLoadPatch.description</value></property>
+        <property name="fixesFromSchema"><value>0</value></property>
+        <property name="fixesToSchema"><value>${version.schema}</value></property>
+        <property name="targetSchema"><value>100000</value></property>
+        <property name="disabled"><value>${template-library.site.disabled}</value></property>
+        <property name="dependsOn" >
+            <list>
+                <ref bean="patch.updateDmPermissions" />
+            </list>
+        </property>
+        <property name="spacesBootstrap" ref="siteLoadBootstrap-Spaces" />
+        <property name="usersBootstrap" ref="siteLoadBootstrap-Users" />
+        <property name="siteService" ref="siteService" />
+        <property name="descriptorService" ref="descriptorComponent" />
+        <property name="authorityService" ref="authorityService" />
+        <property name="behaviourFilter" ref="policyBehaviourFilter" />
+        <property name="siteName">
+            <value>template-library</value>
+        </property>
+        <property name="sitePreset">
+            <value>template-library</value>
+        </property>
+        <property name="bootstrapViews">
+            <map>
+                <entry key="contents">
+                    <props>
+                        <prop key="location">alfresco/module/document-templates-repo/context/bootstrap/template-site/content.acp</prop>
+                    </props>
+                </entry>
+            </map>
+        </property>
+    </bean>
 </beans>
