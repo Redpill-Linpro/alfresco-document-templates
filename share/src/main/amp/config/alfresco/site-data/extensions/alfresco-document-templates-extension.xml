@@ -36,18 +36,7 @@
                 </field>
                 <!-- This field is used to control document templates for this type. A temporary aspect attached to the node when created and cleared by a formfilter afterwards -->
                 <field id="rplpdt:template" mandatory="true">
-                  <control template="/org/alfresco/components/form/controls/association.ftl">
-                   
-                    <!-- Defaults to the document-templates directory in the doclib of the template-library site. -->
-                  <!-- If the template-library site patch is activated the templates are choosen like below.
-                    <control-param name="startLocation">/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</control-param>
-                    <control-param name="rootNode">/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</control-param>
-                   -->  
-                    <!-- Defaults to the Node templates directory in the data dictionary -->
-                    <control-param name="startLocation">/app:company_home/app:dictionary/app:node_templates</control-param>
-                    <control-param name="rootNode">/app:company_home/app:dictionary/app:node_templates</control-param>
- 
-                  </control>
+                  <control template="/org/redpill_linpro/alfresco/share/components/form/controls/documenttemplate.ftl" />
                 </field>
               </appearance>
             </form>

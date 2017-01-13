@@ -11,7 +11,7 @@ To enable the possibility to pick a template for alfresco datatypes this module 
 
 ## Activate templates for certain content types
 To activate a document template for a content type (for example cm:content) edit your share configuration files. See example in `alfresco-document-templates-extension.xml` file.
-
+```
 <extension>
   <modules>
 
@@ -50,17 +50,7 @@ To activate a document template for a content type (for example cm:content) edit
                 </field>
                 <!-- This field is used to control document templates for this type. A temporary aspect attached to the node when created and cleared by a formfilter afterwards -->
                 <field id="rplpdt:template" mandatory="true">
-                  <control template="/org/alfresco/components/form/controls/association.ftl">
-                   
-                   <!-- If the template-library site patch is activated the templates are choosen like below.
-                    <control-param name="startLocation">/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</control-param>
-                    <control-param name="rootNode">/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</control-param>
-                   -->  
-                    <!-- Defaults to the Node templates directory in the data dictionary -->
-                    <control-param name="startLocation">/app:company_home/app:dictionary/app:node_templates</control-param>
-                    <control-param name="rootNode">/app:company_home/app:dictionary/app:node_templates</control-param>
- 
-                  </control>
+                  <control template="/org/redpill_linpro/alfresco/share/components/form/controls/documenttemplate.ftl" />
                 </field>
               </appearance>
             </form>
@@ -71,3 +61,19 @@ To activate a document template for a content type (for example cm:content) edit
 
   </modules>
 </extension>
+```
+
+To configure which folder to pick templates from (default is Data Dictionary/Node Templates). Edit your share-config-custom.xml file for your installation and add the following config section:
+
+```
+<alfresco-config>
+...
+  <config evaluator="string-compare" condition="DocumentTemplates" replace="true">
+    <!-- Defaults to the Node templates directory in the data dictionary -->
+    <templates-folder-path>/app:company_home/app:dictionary/app:node_templates</templates-folder-path>
+    <!-- If the template-library site patch is activated the templates are choosen like below. -->
+    <templates-folder-path>/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</templates-folder-path>
+  </config>
+...
+</alfresco-config>
+```
