@@ -61,6 +61,7 @@ public class SiteLoadPatch extends AbstractPatch {
   
   private String siteName;
   private String sitePreset;
+  private boolean loadOnlyOnNewInstalls;
   
   private ImporterBootstrap spacesBootstrap;
   private ImporterBootstrap usersBootstrap;
@@ -88,7 +89,9 @@ public class SiteLoadPatch extends AbstractPatch {
   public void setSitePreset(String sitePreset) {
     this.sitePreset = sitePreset;
   }
-
+  public void setLoadOnlyOnNewInstalls(boolean loadOnlyOnNewInstalls) {
+    this.loadOnlyOnNewInstalls = loadOnlyOnNewInstalls;
+  }
   public void setSpacesBootstrap(ImporterBootstrap spacesBootstrap)
   {
       this.spacesBootstrap = spacesBootstrap;
@@ -193,6 +196,7 @@ public boolean isDisabled() {
    */
   private String applyInternalImpl() throws Exception
   {
+    if(loadOnlyOnNewInstalls){
       if(descriptorService != null)
       {
           // if the descriptor service is wired up only load the site at install time (and not on upgrade)
@@ -212,6 +216,7 @@ public boolean isDisabled() {
           }
           return I18NUtil.getMessage(MSG_NO_BOOTSTRAP_VIEWS_GIVEN, siteName);
       }
+    }
       
       // Is the site already there?
       // (Run now as we need DB + Security Context)
