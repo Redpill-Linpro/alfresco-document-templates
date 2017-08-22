@@ -13,7 +13,7 @@
 
   <groupId>org.redpill-linpro.alfresco</groupId>
   <artifactId>alfresco-document-templates</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2</version>
   <name>Document templates module for Alfresco</name>
   <description>Document templates module for Alfresco</description>
   <packaging>pom</packaging>
