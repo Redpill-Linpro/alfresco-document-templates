@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.alfresco.model.ContentModel;
+import org.alfresco.repo.content.MimetypeMap;
 import org.alfresco.repo.forms.Form;
 import org.alfresco.repo.forms.FormData;
 import org.alfresco.repo.forms.processor.FilterRegistry;
@@ -72,6 +73,10 @@ public class DocumentTemplatesContentFilterTest {
         
         oneOf(fileFolderService).getWriter(nodeRef1);
         will(returnValue(contentWriter));
+
+        oneOf(contentReader).getMimetype();
+        will(returnValue(MimetypeMap.MIMETYPE_VISIO));
+        oneOf(contentWriter).setMimetype(MimetypeMap.MIMETYPE_VISIO);
         
         oneOf(contentWriter).putContent(contentReader);
         

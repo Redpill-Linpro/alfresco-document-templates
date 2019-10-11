@@ -54,6 +54,7 @@ public class DocumentTemplatesContentFilter extends AbstractFilter<Object, NodeR
         if (nodeService.exists(templateNode)) {
           ContentReader reader = fileFolderService.getReader(templateNode);
           ContentWriter writer = fileFolderService.getWriter(persistedObject);
+          writer.setMimetype(reader.getMimetype());
           writer.putContent(reader);
         } else {
           LOG.warn("The template " + templateNode + " could not be found.");
