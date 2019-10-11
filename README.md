@@ -2,12 +2,21 @@
 
 With this addon enabled the user can when creating content choose from a set of predefined templates residing in either the data-dictionary/node-templates folder or in a special template-library site.
 
-To bootstrap the template-library site the property `template-library.site.disabled` in alfresco-global.properties needs to be set to false.
+To bootstrap the template-library site the property `template-site.disabled` in alfresco-global.properties needs to be set to false.
+
+Default values are:
+
+```
+template-site.bootstrap.disabled=true
+template-site.path=alfresco/module/document-templates-repo/context/bootstrap/template-site/content.acp
+template-site.name=template-library
+template-site.preset=template-library
+```
 
 
 
 ## Enable the Document templates module in Alfresco Share
-To enable the possibility to pick a template for alfresco datatypes this module needs to be enabled in share. Navigate to `http://[your-host]:[port]/page/modules/deploy` and enable the "Redpill Linpro Default Document Templates" module.
+To enable the possibility to pick a template for alfresco datatypes this module needs to be enabled in share. Navigate to `http://[your-host]:[port]/share/page/modules/deploy` and enable the "Redpill Linpro Default Document Templates" module.
 
 ## Activate templates for certain content types
 To activate a document template for a content type (for example cm:content) edit your share configuration files. See example in `alfresco-document-templates-extension.xml` file.
@@ -77,3 +86,13 @@ To configure which folder to pick templates from (default is Data Dictionary/Nod
 ...
 </alfresco-config>
 ```
+
+## Custom templated site contents
+* Bootstrap the template site
+* Add files, folders and/or rules to the site
+* Export the site using `http://[your-host]:[port]/alfresco/s/api/sites/template-site/export`
+* Unzip the file and add the exported acp-file to a custom location and configure it with 
+```
+template-site.path=alfresco/module/document-templates-repo/context/bootstrap/template-site/content.acp
+```
+
