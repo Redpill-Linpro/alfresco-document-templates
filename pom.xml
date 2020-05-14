@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.redpill-linpro.alfresco</groupId>
     <artifactId>alfresco-document-templates</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <name>AIO - SDK 4.0</name>
     <description>All-In-One (AIO) project for SDK 4.0</description>
     <packaging>pom</packaging>
