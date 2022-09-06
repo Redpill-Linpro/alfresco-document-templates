@@ -106,7 +106,7 @@ EXIT /B 0
 :build_acs
     docker-compose -f "%COMPOSE_FILE_PATH%" kill alfresco-document-templates-acs
     docker-compose -f "%COMPOSE_FILE_PATH%" rm -f alfresco-document-templates-acs
-	call %MVN_EXEC% clean package -pl alfresco-document-templates-integration-tests,alfresco-document-templates-repo,alfresco-document-templates-repo-docker
+	call %MVN_EXEC% clean package -pl alfresco-document-templates-repo,alfresco-document-templates-repo-docker
 EXIT /B 0
 :tail
     docker-compose -f "%COMPOSE_FILE_PATH%" logs -f
@@ -115,10 +115,10 @@ EXIT /B 0
     docker-compose -f "%COMPOSE_FILE_PATH%" logs --tail="all"
 EXIT /B 0
 :prepare-test
-    call %MVN_EXEC% verify -DskipTests=true -pl alfresco-document-templates-repo,alfresco-document-templates-integration-tests,alfresco-document-templates-repo-docker
+    call %MVN_EXEC% verify -DskipTests=true -pl alfresco-document-templates-repo,alfresco-document-templates-repo-docker
 EXIT /B 0
 :test
-    call %MVN_EXEC% verify -pl alfresco-document-templates-repo,alfresco-document-templates-integration-tests
+    call %MVN_EXEC% verify -pl alfresco-document-templates-repo,
 EXIT /B 0
 :purge
     docker volume rm -f alfresco-document-templates-acs-volume
