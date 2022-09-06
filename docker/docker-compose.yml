@@ -18,6 +18,12 @@ services:
       dockerfile: ./Dockerfile
       context: ../../../document-templates-repo-docker/target
     environment:
+      JAVA_TOOL_OPTIONS: "${keystore.settings}"
+      JAVA_OPTS: "
+        -Dsolr.secureComms=secret
+        -Dsolr.sharedSecret=secret
+        -Dmessaging.broker.url=\"failover:(nio://alfresco-alingsas-activemq:61616)?timeout=3000&jms.useCompression=true\"
+        "
       CATALINA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:8888"
     ports:
       - "${acs.port}:8080"
@@ -38,18 +44,29 @@ services:
     volumes:
       - alfresco-document-templates-db-volume:/var/lib/postgresql/data
   alfresco-document-templates-ass:
-    image: alfresco/alfresco-search-services:1.2.0
+    image: alfresco/alfresco-search-services:2.0.3
     environment:
       SOLR_ALFRESCO_HOST: alfresco-document-templates-acs
       SOLR_ALFRESCO_PORT: 8080
       SOLR_SOLR_HOST: alfresco-document-templates-ass
       SOLR_SOLR_PORT: 8983
       SOLR_CREATE_ALFRESCO_DEFAULTS: alfresco,archive
+      ALFRESCO_SECURE_COMMS: "secret"
+      JAVA_TOOL_OPTIONS: "-Dalfresco.secureComms.secret=secret"
     ports:
       - "8983:8983"
     volumes:
       - alfresco-document-templates-ass-volume:/opt/alfresco-search-services/contentstore
       - alfresco-document-templates-ass-volume:/opt/alfresco-search-services/data
+  alfresco-alingsas-activemq:
+      image: alfresco/alfresco-activemq:5.16.1
+      mem_limit: 1g
+      ports:
+        - 8161:8161 # Web Console
+        - 5672:5672 # AMQP
+        - 61616:61616 # OpenWire
+        - 61613:61613 # STOMP
+
 volumes:
   alfresco-document-templates-acs-volume:
     external: true

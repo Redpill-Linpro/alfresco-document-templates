@@ -48,7 +48,7 @@ build_share() {
 build_acs() {
     docker-compose -f "$COMPOSE_FILE_PATH" kill alfresco-document-templates-acs
     yes | docker-compose -f "$COMPOSE_FILE_PATH" rm -f alfresco-document-templates-acs
-    $MVN_EXEC clean package -pl alfresco-document-templates-integration-tests,alfresco-document-templates-platform,alfresco-document-templates-platform-docker
+    $MVN_EXEC clean package -pl alfresco-document-templates-integration-tests,alfresco-document-templates-repo,alfresco-document-templates-repo-docker
 }
 
 tail() {
@@ -60,11 +60,11 @@ tail_all() {
 }
 
 prepare_test() {
-    $MVN_EXEC verify -DskipTests=true -pl alfresco-document-templates-platform,alfresco-document-templates-integration-tests,alfresco-document-templates-platform-docker
+    $MVN_EXEC verify -DskipTests=true -pl alfresco-document-templates-repo,alfresco-document-templates-integration-tests,alfresco-document-templates-repo-docker
 }
 
 test() {
-    $MVN_EXEC verify -pl alfresco-document-templates-platform,alfresco-document-templates-integration-tests
+    $MVN_EXEC verify -pl alfresco-document-templates-repo,alfresco-document-templates-integration-tests
 }
 
 case "$1" in
