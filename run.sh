@@ -9,18 +9,18 @@ else
 fi
 
 start() {
-    docker volume create alfresco-document-templates-acs-volume
-    docker volume create alfresco-document-templates-db-volume
-    docker volume create alfresco-document-templates-ass-volume
+    docker volume create document-templates-acs-volume
+    docker volume create document-templates-db-volume
+    docker volume create document-templates-ass-volume
     docker-compose -f "$COMPOSE_FILE_PATH" up --build -d
 }
 
 start_share() {
-    docker-compose -f "$COMPOSE_FILE_PATH" up --build -d alfresco-document-templates-share
+    docker-compose -f "$COMPOSE_FILE_PATH" up --build -d document-templates-share
 }
 
 start_acs() {
-    docker-compose -f "$COMPOSE_FILE_PATH" up --build -d alfresco-document-templates-acs
+    docker-compose -f "$COMPOSE_FILE_PATH" up --build -d document-templates-acs
 }
 
 down() {
@@ -30,9 +30,9 @@ down() {
 }
 
 purge() {
-    docker volume rm -f alfresco-document-templates-acs-volume
-    docker volume rm -f alfresco-document-templates-db-volume
-    docker volume rm -f alfresco-document-templates-ass-volume
+    docker volume rm -f document-templates-acs-volume
+    docker volume rm -f document-templates-db-volume
+    docker volume rm -f document-templates-ass-volume
 }
 
 build() {
@@ -40,15 +40,15 @@ build() {
 }
 
 build_share() {
-    docker-compose -f "$COMPOSE_FILE_PATH" kill alfresco-document-templates-share
-    yes | docker-compose -f "$COMPOSE_FILE_PATH" rm -f alfresco-document-templates-share
-    $MVN_EXEC clean package -pl alfresco-document-templates-share,alfresco-document-templates-share-docker
+    docker-compose -f "$COMPOSE_FILE_PATH" kill document-templates-share
+    yes | docker-compose -f "$COMPOSE_FILE_PATH" rm -f document-templates-share
+    $MVN_EXEC clean package -pl document-templates-share,document-templates-share-docker
 }
 
 build_acs() {
-    docker-compose -f "$COMPOSE_FILE_PATH" kill alfresco-document-templates-acs
-    yes | docker-compose -f "$COMPOSE_FILE_PATH" rm -f alfresco-document-templates-acs
-    $MVN_EXEC clean package -pl alfresco-document-templates-repo,alfresco-document-templates-repo-docker
+    docker-compose -f "$COMPOSE_FILE_PATH" kill document-templates-acs
+    yes | docker-compose -f "$COMPOSE_FILE_PATH" rm -f document-templates-acs
+    $MVN_EXEC clean package -pl document-templates-integration-tests,document-templates-repo,document-templates-repo-docker
 }
 
 tail() {
@@ -60,11 +60,11 @@ tail_all() {
 }
 
 prepare_test() {
-    $MVN_EXEC verify -DskipTests=true -pl alfresco-document-templates-repo,alfresco-document-templates-repo-docker
+    $MVN_EXEC verify -DskipTests=true -pl document-templates-repo,document-templates-integration-tests,document-templates-repo-docker
 }
 
 test() {
-    $MVN_EXEC verify -pl alfresco-document-templates-repo,
+    $MVN_EXEC verify -pl document-templates-repo,document-templates-integration-tests
 }
 
 case "$1" in

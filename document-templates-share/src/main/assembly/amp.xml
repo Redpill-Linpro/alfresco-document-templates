@@ -27,7 +27,7 @@
     <files>
         <!-- Filter module.properties and put at top level in the AMP -->
         <file>
-            <source>src/main/resources/alfresco/module/document-templates-share/module.properties</source>
+            <source>src/main/resources/alfresco/module/${project.artifactId}/module.properties</source>
             <filtered>true</filtered>
         </file>
         <!-- Include AMP -> WAR mapping file (needed for custom mappings) -->
@@ -37,7 +37,7 @@
         </file>
         <!-- Add module-specific log4j.properties configuration at top level in the AMP -->
         <file>
-            <source>src/main/resources/alfresco/module/document-templates-share/log4j.properties</source>
+            <source>src/main/resources/alfresco/module/${project.artifactId}/log4j.properties</source>
             <filtered>false</filtered>
         </file>
     </files>
