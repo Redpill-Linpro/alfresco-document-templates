@@ -1,46 +1,98 @@
-# Alfresco AIO Project - SDK 4.6
+# Alfresco Document Templates
 
-This is an All-In-One (AIO) project for Alfresco SDK 4.6.
+With this addon enabled the user can when creating content choose from a set of predefined templates residing in either the data-dictionary/node-templates folder or in a special template-library site.
 
-Run with `./run.sh build_start` or `./run.bat build_start` and verify that it
+To bootstrap the template-library site the property `template-site.disabled` in alfresco-global.properties needs to be set to false.
 
- * Runs Alfresco Content Service (ACS)
- * Runs Alfresco Share
- * Runs Alfresco Search Service (ASS)
- * Runs PostgreSQL database
- * Deploys the JAR assembled modules
- 
-All the services of the project are now run as docker containers. The run script offers the next tasks:
+Default values are:
 
- * `build_start`. Build the whole project, recreate the ACS and Share docker images, start the dockerised environment composed by ACS, Share, ASS and 
- PostgreSQL and tail the logs of all the containers.
- * `build_start_it_supported`. Build the whole project including dependencies required for IT execution, recreate the ACS and Share docker images, start the 
- dockerised environment composed by ACS, Share, ASS and PostgreSQL and tail the logs of all the containers.
- * `start`. Start the dockerised environment without building the project and tail the logs of all the containers.
- * `stop`. Stop the dockerised environment.
- * `purge`. Stop the dockerised container and delete all the persistent data (docker volumes).
- * `tail`. Tail the logs of all the containers.
- * `reload_share`. Build the Share module, recreate the Share docker image and restart the Share container.
- * `reload_acs`. Build the ACS module, recreate the ACS docker image and restart the ACS container.
- * `build_test`. Build the whole project, recreate the ACS and Share docker images, start the dockerised environment, execute the integration tests from the
- `integration-tests` module and stop the environment.
- * `test`. Execute the integration tests (the environment must be already started).
+```
+template-site.bootstrap.disabled=true
+template-site.path=alfresco/module/document-templates-repo/context/bootstrap/template-site/content.acp
+template-site.name=template-library
+template-site.preset=template-library
+```
 
-# Few things to notice
 
- * No parent pom
- * No WAR projects, the jars are included in the custom docker images
- * No runner project - the Alfresco environment is now managed through [Docker](https://www.docker.com/)
- * Standard JAR packaging and layout
- * Works seamlessly with Eclipse and IntelliJ IDEA
- * JRebel for hot reloading, JRebel maven plugin for generating rebel.xml [JRebel integration documentation]
- * AMP as an assembly
- * Persistent test data through restart thanks to the use of Docker volumes for ACS, ASS and database data
- * Integration tests module to execute tests against the final environment (dockerised)
- * Resources loaded from META-INF
- * Web Fragment (this includes a sample servlet configured via web fragment)
 
-# TODO
+## Enable the Document templates module in Alfresco Share
+To enable the possibility to pick a template for alfresco datatypes this module needs to be enabled in share. Navigate to `http://[your-host]:[port]/share/page/modules/deploy` and enable the "Redpill Linpro Default Document Templates" module.
 
-  * Abstract assembly into a dependency so we don't have to ship the assembly in the archetype
-  * Functional/remote unit tests
+## Activate templates for certain content types
+To activate a document template for a content type (for example cm:content) edit your share configuration files. See example in `alfresco-document-templates-extension.xml` file.
+```
+<extension>
+  <modules>
+
+    <module>
+      <id>Redpill Linpro Default Document Templates</id>
+      <auto-deploy>false</auto-deploy>
+      <version>${project.version}</version>
+
+      <configurations>
+        <config evaluator="string-compare" condition="DocumentLibrary">
+          <create-content>
+            <content id="content" label="create-content.document" type="pagelink" index="6" icon="text">
+              <param name="page">create-content?destination={nodeRef}&amp;itemId=cm:content</param>
+            </content>
+          </create-content>
+        </config>
+
+        <config evaluator="model-type" condition="cm:content">
+          <forms>
+            <!-- Default Create Content form -->
+            <form>
+              <field-visibility>
+                <show id="cm:name" />
+                <show id="cm:title" force="true" />
+                <show id="cm:description" force="true" />
+                <show id="rplpdt:template" force="true" />
+              </field-visibility>
+              <appearance>
+                <field id="cm:name">
+                  <control>
+                    <control-param name="maxLength">255</control-param>
+                  </control>
+                </field>
+                <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+                </field>
+                <!-- This field is used to control document templates for this type. A temporary aspect attached to the node when created and cleared by a formfilter afterwards -->
+                <field id="rplpdt:template" mandatory="true">
+                  <control template="/org/redpill_linpro/alfresco/share/components/form/controls/documenttemplate.ftl" />
+                </field>
+              </appearance>
+            </form>
+          </forms>
+        </config>
+      </configurations>
+    </module>
+
+  </modules>
+</extension>
+```
+
+To configure which folder to pick templates from (default is Data Dictionary/Node Templates). Edit your share-config-custom.xml file for your installation and add the following config section:
+
+```
+<alfresco-config>
+...
+  <config evaluator="string-compare" condition="DocumentTemplates" replace="true">
+    <!-- Defaults to the Node templates directory in the data dictionary -->
+    <templates-folder-path>/app:company_home/app:dictionary/app:node_templates</templates-folder-path>
+    <!-- If the template-library site patch is activated the templates are choosen like below. -->
+    <templates-folder-path>/app:company_home/st:sites/cm:template-library/cm:documentLibrary/cm:document-templates</templates-folder-path>
+  </config>
+...
+</alfresco-config>
+```
+
+## Custom templated site contents
+* Bootstrap the template site
+* Add files, folders and/or rules to the site
+* Export the site using `http://[your-host]:[port]/alfresco/s/api/sites/template-site/export`
+* Unzip the file and add the exported acp-file to a custom location and configure it with 
+```
+template-site.path=alfresco/module/document-templates-repo/context/bootstrap/template-site/content.acp
+```
+

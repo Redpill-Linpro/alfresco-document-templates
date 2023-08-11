@@ -16,8 +16,7 @@ import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.cmr.repository.NodeService;
 import org.alfresco.service.namespace.NamespaceService;
 import org.apache.commons.io.FilenameUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.redpill_linpro.alfresco.repo.model.DocumentTemplatesModel;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -29,7 +28,7 @@ import org.springframework.util.Assert;
  *
  */
 public class DocumentTemplatesContentFilter extends AbstractFilter<Object, NodeRef> implements InitializingBean {
-  private static final Logger LOG = LoggerFactory.getLogger(DocumentTemplatesContentFilter.class);
+  private static final Logger LOG = Logger.getLogger(DocumentTemplatesContentFilter.class);
 
   private NodeService nodeService;
   private FileFolderService fileFolderService;
