@@ -2,14 +2,14 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>alfresco-document-templates-repo-docker</artifactId>
+    <artifactId>document-templates-repo-docker</artifactId>
     <name>Alfresco Platform/Repository Docker Module</name>
     <description>Platform/Repo Docker Module to generate the final Docker image</description>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>org.redpill-linpro.alfresco</groupId>
-        <artifactId>alfresco-document-templates</artifactId>
+        <artifactId>document-templates</artifactId>
         <version>1.5.0</version>
     </parent>
 
@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>org.redpill-linpro.alfresco</groupId>
-            <artifactId>alfresco-document-templates-repo</artifactId>
+            <artifactId>document-templates-repo</artifactId>
             <version>1.5.0</version>
         </dependency>
         <!-- Add any additional AMPs or extension JARs here that you want to be deployed in Alfresco -->
