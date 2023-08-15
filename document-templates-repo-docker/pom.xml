@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.redpill-linpro.alfresco</groupId>
         <artifactId>alfresco-document-templates</artifactId>
-        <version>1.4.0</version>
+        <version>1.5.0</version>
     </parent>
 
     <properties>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.redpill-linpro.alfresco</groupId>
             <artifactId>alfresco-document-templates-repo</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.0</version>
         </dependency>
         <!-- Add any additional AMPs or extension JARs here that you want to be deployed in Alfresco -->
         <!-- IMPORTANT: 
